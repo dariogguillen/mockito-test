@@ -5,6 +5,7 @@ import org.dgg.mockito.repositories.ExamRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -22,9 +23,9 @@ class ExamServiceImplTest {
                 new Exam(5L, "JUnit")
         ));
         ExamService examService = new ExamServiceImpl(examRepository);
-        Exam exam = examService.findExamByName("Mockito");
-        assertNotNull(exam);
-        assertEquals("Mockito", exam.getName());
-        assertEquals(4L, exam.getId());
+        Optional<Exam> exam = examService.findExamByName("Mockito");
+        assertTrue(exam.isPresent());
+        assertEquals("Mockito", exam.orElseThrow().getName());
+        assertEquals(4L, exam.get().getId());
     }
 }

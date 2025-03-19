@@ -13,13 +13,11 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public Exam findExamByName(String name) {
-        Optional<Exam> examOpt = examRepository
+    public Optional<Exam> findExamByName(String name) {
+        return examRepository
                 .findAll()
                 .stream()
                 .filter(exam -> exam.getName().equals(name))
                 .findFirst();
-
-        return examOpt.orElseThrow();
     }
 }
