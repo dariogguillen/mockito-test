@@ -23,10 +23,7 @@ class ExamServiceImplTest {
         examRepository = mock(ExamRepository.class);
         questionRepository = mock(QuestionRepository.class);
         examService = new ExamServiceImpl(examRepository, questionRepository);
-    }
 
-    @Test
-    void findExamByName() {
         when(examRepository.findAll()).thenReturn(Arrays.asList(
                 new Exam(1L, "Java"),
                 new Exam(2L, "Spring"),
@@ -34,6 +31,10 @@ class ExamServiceImplTest {
                 new Exam(4L, "Mockito"),
                 new Exam(5L, "JUnit")
         ));
+    }
+
+    @Test
+    void findExamByName() {
         Optional<Exam> exam = examService.findExamByName("Mockito");
         assertTrue(exam.isPresent());
         assertEquals("Mockito", exam.orElseThrow().getName());
@@ -42,13 +43,6 @@ class ExamServiceImplTest {
 
     @Test
     void findExamByName_notFound() {
-        when(examRepository.findAll()).thenReturn(Arrays.asList(
-                new Exam(1L, "Java"),
-                new Exam(2L, "Spring"),
-                new Exam(3L, "Hibernate"),
-                new Exam(4L, "Mockito"),
-                new Exam(5L, "JUnit")
-        ));
         Optional<Exam> exam = examService.findExamByName("C++");
         assertTrue(exam.isEmpty());
     }
@@ -64,13 +58,6 @@ class ExamServiceImplTest {
 
     @Test
     void findExamQuestionsByName() {
-        when(examRepository.findAll()).thenReturn(Arrays.asList(
-                new Exam(1L, "Java"),
-                new Exam(2L, "Spring"),
-                new Exam(3L, "Hibernate"),
-                new Exam(4L, "Mockito"),
-                new Exam(5L, "JUnit")
-        ));
         Optional<Exam> exam = examService.findExamQuestionsByName("Mockito");
         assertTrue(exam.isPresent());
         assertEquals("Mockito", exam.orElseThrow().getName());
